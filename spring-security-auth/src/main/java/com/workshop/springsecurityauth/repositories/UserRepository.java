@@ -6,30 +6,26 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class UserRepository {
-    private final static List<UserDetails> APPLICATION_USERS = Arrays.asList(
-            new User(
-                    "rencinas@gmail.com",
-                    "password",
-                    Collections.singleton(new SimpleGrantedAuthority("ROLE_ADMIN"))
-            ),
-            new User(
-                    "rocio@gmail.com",
-                    "password",
-                    Collections.singleton(new SimpleGrantedAuthority("ROLE_STUDENT"))
-            )
-    );
+    private static List<UserDetails> applicationUsers =  new ArrayList<>();
 
     public UserDetails findUserByEmail(String email) {
-        return APPLICATION_USERS
+        return applicationUsers
                 .stream()
                 .filter(u -> u.getUsername().equals(email))
                 .findFirst()
                 .orElseThrow(() -> new UsernameNotFoundException("No user was found"));
     }
+
+    public void addUser(UserDetails userDetails) {
+        applicationUsers.add(userDetails);
+    }
+
+    public void removeUser(String email) {
+        applicationUsers.removeIf(userDetails -> userDetails.getUsername().equals(email));
+    }
+
 }
