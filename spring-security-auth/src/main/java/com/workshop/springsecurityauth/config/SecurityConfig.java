@@ -4,6 +4,9 @@ import com.workshop.springsecurityauth.repositories.UserRepository;
 import com.workshop.springsecurityauth.services.JwtUserDetailsService;
 
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -76,7 +79,8 @@ public class SecurityConfig {
         return new UserDetailsService() {
             @Override
             public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-                return jwtUserDetailsService.loadUserByUsername(email);
+                UserDetails user = userRepository.findUserByEmail(email);
+                return jwtUserDetailsService.loadUserByUsername(user.getUsername());
                 // return userRepository.findUserByEmail(email);
             }
         };
