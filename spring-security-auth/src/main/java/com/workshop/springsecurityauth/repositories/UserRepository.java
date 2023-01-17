@@ -22,6 +22,11 @@ public class UserRepository {
                     "rocio@gmail.com",
                     "password",
                     Collections.singleton(new SimpleGrantedAuthority("ROLE_STUDENT"))
+            ),
+            new User(
+                    "adrianclavijolop@gmail.com",
+                    "$2a$12$yq4XvbNWjyqojBIk29M6TuEvmIq7Nhmon0vO7pEF.W4xbHBu9GBKq",
+                    Collections.singleton(new SimpleGrantedAuthority("ROLE_ADMIN"))
             )
     );
 
