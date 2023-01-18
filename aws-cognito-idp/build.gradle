@@ -26,6 +26,15 @@ dependencies {
 	testImplementation 'org.projectlombok:lombok:1.18.20'
 	annotationProcessor("org.projectlombok:lombok:1.18.20")
 
+	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+
+	// https://mvnrepository.com/artifact/com.auth0/jwks-rsa
+	implementation 'com.auth0:jwks-rsa:0.21.3'
+
+	// https://mvnrepository.com/artifact/com.auth0/java-jwt
+	implementation 'com.auth0:java-jwt:4.2.2'
+
 }
 
 test {
