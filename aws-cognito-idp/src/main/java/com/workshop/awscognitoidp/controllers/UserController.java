@@ -72,7 +72,9 @@ public class UserController {
         authParams.put("PASSWORD", userSignInRequest.getPassword());
 
         final AdminInitiateAuthRequest authRequest = new AdminInitiateAuthRequest();
-        authRequest.withAuthFlow(AuthFlowType.ADMIN_NO_SRP_AUTH).withClientId(clientId)
+        authRequest
+                .withAuthFlow(AuthFlowType.ADMIN_USER_PASSWORD_AUTH)
+                .withClientId(clientId)
                 .withUserPoolId(userPoolId).withAuthParameters(authParams);
 
         try {
