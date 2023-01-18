@@ -31,6 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .permitAll()
                         .anyRequest()
                         .authenticated())
-                .oauth2ResourceServer().jwt();
+                .oauth2ResourceServer()
+                .jwt();
     }
 }
