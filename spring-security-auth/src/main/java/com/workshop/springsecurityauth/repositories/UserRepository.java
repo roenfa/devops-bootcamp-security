@@ -25,7 +25,7 @@ public class UserRepository {
             ),
             new User(
                     "martin.ferreyra@jala.university",
-                    "$2a$10$fdgIhuB.A8duSYAG4zrHHuEBW/5cvWQsU9/5AgiON4GdEZQFCJ5mC",
+                    "$2a$10$.J8u981msP1tSW41piNHiuT46UHmcmJyixLk8Wd3Ri5Hx2qlBe1By",
                     Collections.singleton(new SimpleGrantedAuthority("ROLE_STUDENT"))
             )
     );
