@@ -1,10 +1,11 @@
 package com.workshop.springsecurityauth.config;
 
-import com.workshop.springsecurityauth.repositories.UserRepository;
+import com.workshop.springsecurityauth.services.JwtUserDetailsService;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -16,7 +17,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -28,7 +29,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
     private final JwtAuthFilter jwtAuthFilter;
 
-    private final UserRepository userRepository;
+    private final JwtUserDetailsService jwtUserDetailsService;
 
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -40,10 +41,10 @@ public class SecurityConfig {
                 .anyRequest()
                 .authenticated()
                 .and()
+                .authenticationProvider(authenticationProvider())
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 //
         return http.build();
@@ -64,8 +65,8 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-//        return BCryptPasswordEncoder();
-        return NoOpPasswordEncoder.getInstance();
+       return new BCryptPasswordEncoder();
+        // return NoOpPasswordEncoder.getInstance();
     }
 
     @Bean
@@ -73,7 +74,7 @@ public class SecurityConfig {
         return new UserDetailsService() {
             @Override
             public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-                return userRepository.findUserByEmail(email);
+                return jwtUserDetailsService.loadUserByUsername(email);
             }
         };
     }

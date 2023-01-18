@@ -2,7 +2,9 @@ package com.workshop.springsecurityauth.controllers;
 
 import com.workshop.springsecurityauth.config.JwtTokenUtil;
 import com.workshop.springsecurityauth.models.AuthenticationRequest;
-import com.workshop.springsecurityauth.repositories.UserRepository;
+import com.workshop.springsecurityauth.models.JwtResponse;
+import com.workshop.springsecurityauth.services.JwtUserDetailsService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,19 +18,20 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class AuthenticationController {
     private final AuthenticationManager authenticationManager;
-    private final UserRepository userRepository;
     private final JwtTokenUtil jwtTokenUtil;
+    private final JwtUserDetailsService jwtUserDetailsService;
 
     @PostMapping("/authenticate")
-    public ResponseEntity<String> authenticate(@RequestBody AuthenticationRequest request) {
+    public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequest request) {
         authenticationManager.authenticate(
           new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
 
-        final UserDetails user = userRepository.findUserByEmail(request.getEmail());
+        final UserDetails user = jwtUserDetailsService.loadUserByUsername(request.getEmail());
 
         if (user != null) {
-            return ResponseEntity.ok(jwtTokenUtil.generateToken(user));
+            final String token = jwtTokenUtil.generateToken(user);
+            return ResponseEntity.ok(new JwtResponse(token));
         }
 
         return ResponseEntity.status(400).body("Some error has occurred");
