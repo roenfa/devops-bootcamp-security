@@ -3,6 +3,9 @@ package com.workshop.springsecurityauth.config;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -14,9 +17,12 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
+
 @Component
+@NoArgsConstructor
+@AllArgsConstructor
 public class JwtTokenUtil implements Serializable {
-    private String jwtSigningKey = "secret";
+    private String jwtSigningKey = "bootcamp";
     private static final long serialVersionUID = -2550185165626007488L;
 //    public static final long JWT_TOKEN_VALIDITY = 5*60*60;
 
@@ -42,7 +48,7 @@ public class JwtTokenUtil implements Serializable {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parser().setSigningKey(jwtSigningKey).parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     }
 
     private Boolean isTokenExpired(String token) {
