@@ -50,9 +50,7 @@ public class UserAuthenticationService {
                     }
 
                     final Map<String, String> challengeResponses = new HashMap<>();
-                    challengeResponses.put("NAME", userSignInRequest.getUsername());
                     challengeResponses.put("USERNAME", userSignInRequest.getUsername());
-                    challengeResponses.put("EMAIL", userSignInRequest.getEmail());
                     challengeResponses.put("PASSWORD", userSignInRequest.getPassword());
                     // add new password
                     challengeResponses.put("NEW_PASSWORD", userSignInRequest.getNewPassword());

@@ -21,9 +21,8 @@ public class UserRegistrationService {
     @Autowired
     private AWSCognitoIdentityProvider cognitoClient;
 
-    public String signUp(UserSignUpRequest userSignUpRequest) throws CognitoUserException {
+    public void signUp(UserSignUpRequest userSignUpRequest) throws CognitoUserException {
 
-        String userStatus = null;
         try {
 
             AttributeType emailAttr =
@@ -40,21 +39,22 @@ public class UserRegistrationService {
 
             AdminCreateUserResult createUserResult = cognitoClient.adminCreateUser(userRequest);
 
-            // TODO: Store in our database the email, username, cognito sub
-
-            userStatus = createUserResult.getUser().getUserStatus();
             System.out.println("User " + createUserResult.getUser().getUsername()
-                    + " is created. Status: " + userStatus);
+                    + " is created. Status: " + createUserResult.getUser().getUserStatus());
+
+            // Disable force change password during first login
+            AdminSetUserPasswordRequest adminSetUserPasswordRequest =
+                    new AdminSetUserPasswordRequest().withUsername(userSignUpRequest.getUsername())
+                            .withUserPoolId(userPoolId)
+                            .withPassword(userSignUpRequest.getPassword()).withPermanent(true);
+
+            cognitoClient.adminSetUserPassword(adminSetUserPasswordRequest);
 
         } catch (AWSCognitoIdentityProviderException e) {
             System.out.println(e.getErrorMessage());
-            throw new CognitoUserException("Cognito Provider error: " + e.getErrorMessage());
         } catch (Exception e) {
             System.out.println("Setting user password");
-            throw new CognitoUserException("Setting user password");
         }
-
-        return userStatus;
     }
 
     private String createTemporaryPassword() {
