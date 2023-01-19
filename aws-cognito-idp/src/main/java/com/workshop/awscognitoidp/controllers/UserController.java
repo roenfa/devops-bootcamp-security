@@ -21,9 +21,9 @@ public class UserController {
     private UserAuthenticationService userAuthenticationService;
 
     @PostMapping(path = "/sign-up")
-    public String signUp(@RequestBody UserSignUpRequest userSignUpRequest) throws CognitoUserException {
+    public void signUp(@RequestBody UserSignUpRequest userSignUpRequest) throws CognitoUserException {
 
-        return userRegistrationService.signUp(userSignUpRequest);
+        this.userRegistrationService.signUp(userSignUpRequest);
     }
 
     @PostMapping(path = "/sign-in")
