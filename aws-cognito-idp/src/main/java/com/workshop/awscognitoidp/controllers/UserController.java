@@ -27,17 +27,22 @@ public class UserController {
     }
 
     @PostMapping(path = "/sign-in")
-    public @ResponseBody  UserSignInResponse signIn(@RequestBody UserSignInRequest userSignInRequest) throws CognitoUserException {
+    public @ResponseBody UserSignInResponse signIn(@RequestBody UserSignInRequest userSignInRequest) throws CognitoUserException {
         return userAuthenticationService.signIn(userSignInRequest);
     }
 
     @GetMapping(path = "/detail")
-    public @ResponseBody  UserDetail getUserDetail() {
+    public @ResponseBody UserDetail getUserDetail() {
 
         UserDetail userDetail = new UserDetail();
-        userDetail.setFirstName("Test");
-        userDetail.setLastName("Buddy");
+        userDetail.setUsername("Test");
+        userDetail.setPassword("Buddy");
         userDetail.setEmail("testbuddy@tutotialsbuddy.com");
         return userDetail;
+    }
+
+    @GetMapping(path = "/all")
+    public @ResponseBody UserDetail getAll(){
+        
     }
 }
