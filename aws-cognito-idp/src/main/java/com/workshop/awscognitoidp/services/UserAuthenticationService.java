@@ -3,6 +3,7 @@ package com.workshop.awscognitoidp.services;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
 import com.amazonaws.services.cognitoidp.model.*;
 import com.workshop.awscognitoidp.exceptions.CognitoUserException;
+import com.workshop.awscognitoidp.helpers.UserState;
 import com.workshop.awscognitoidp.models.UserDetail;
 import com.workshop.awscognitoidp.models.UserSignInRequest;
 import com.workshop.awscognitoidp.models.UserSignInResponse;
@@ -86,11 +87,15 @@ public class UserAuthenticationService {
                             "User has other challenge " + result.getChallengeName());
                 }
             } else {
-                // Verify user in database
-                Optional<UserDetail> userDetail = userDetailService.findUserDetailByUsername(userSignInRequest.getUsername());
-                System.out.println("existe: "+userDetail);
-
                 System.out.println("User has no challenge");
+                Optional<UserDetail> userDetail = userDetailService.findUserDetailByUsername(userSignInRequest.getUsername());
+                userDetail.ifPresent(user -> {
+                    if(user.getState() == UserState.UNCONFIRMED)
+                        user.setState(UserState.CONFIRMED); 
+                    
+                    System.out.println("user change: "+user);
+                });
+
                 authenticationResult = result.getAuthenticationResult();
 
                 userSignInResponse.setAccessToken(authenticationResult.getAccessToken());
@@ -98,8 +103,6 @@ public class UserAuthenticationService {
                 userSignInResponse.setRefreshToken(authenticationResult.getRefreshToken());
                 userSignInResponse.setExpiresIn(authenticationResult.getExpiresIn());
                 userSignInResponse.setTokenType(authenticationResult.getTokenType());
-
-
             }
 
         } catch (InvalidParameterException e) {
