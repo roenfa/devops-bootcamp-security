@@ -16,17 +16,17 @@ public class StudentServiceDetailsImpl implements StudentServiceDetails {
   private final StudentRepository studentRepository;
 
   @Override
-  public StudentDetails saveServiceDetails(StudentDetails student) {
+  public StudentDetails saveStudentDetails(StudentDetails student) {
     return studentRepository.save(student);
   }
 
   @Override
-  public Optional<StudentDetails> getServiceDetailsById(Long idStudent) {
-    return studentRepository.findById(idStudent);
+  public Optional<StudentDetails> getStudentDetailsById(Long studentId) {
+    return studentRepository.findById(studentId);
   }
 
   @Override
-  public boolean deleteServiceDetailsById(Long idStudent) {
+  public boolean deleteStudentDetailsById(Long idStudent) {
     try {
       studentRepository.deleteById(idStudent);
       return true;
