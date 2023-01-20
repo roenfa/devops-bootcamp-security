@@ -31,7 +31,7 @@ public class StudentController {
     studentDetails.setUserDetail(userDetail.get());
 
     return new ResponseEntity<>(
-      studentService.saveServiceDetails(studentDetails),
+      studentService.saveStudentDetails(studentDetails),
       HttpStatus.CREATED
     );
   }
