@@ -7,9 +7,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.workshop.awscognitoidp.helpers.UserState;
+import com.workshop.awscognitoidp.models.practice.StudentDetails;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,6 +36,9 @@ public class UserDetail {
     @Column(nullable = false)
     private UserState state;
 
+    @OneToOne(mappedBy = "userDetail")
+	private StudentDetails studentDetails;
+    
     public UserDetail(
             String username,
             String email,
