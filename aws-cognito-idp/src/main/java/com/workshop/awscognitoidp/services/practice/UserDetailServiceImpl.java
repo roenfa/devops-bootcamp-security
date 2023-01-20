@@ -34,5 +34,14 @@ public class UserDetailServiceImpl implements UserDetailService {
       return false;
     }
   }
-  
+
+  @Override
+  public Iterable<UserDetail> findAll() {
+    return userDetailRepository.findAll();
+  }
+
+  @Override
+  public Optional<UserDetail> findUserDetailByUsername(String username) {
+    return userDetailRepository.findByUsername(username);
+  }
 }

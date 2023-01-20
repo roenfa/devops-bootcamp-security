@@ -3,14 +3,18 @@ package com.workshop.awscognitoidp.services;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
 import com.amazonaws.services.cognitoidp.model.*;
 import com.workshop.awscognitoidp.exceptions.CognitoUserException;
+import com.workshop.awscognitoidp.models.UserDetail;
 import com.workshop.awscognitoidp.models.UserSignInRequest;
 import com.workshop.awscognitoidp.models.UserSignInResponse;
+import com.workshop.awscognitoidp.services.practice.UserDetailService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class UserAuthenticationService {
@@ -21,6 +25,12 @@ public class UserAuthenticationService {
 
     @Autowired
     private AWSCognitoIdentityProvider cognitoClient;
+
+    private final UserDetailService userDetailService;
+
+    public UserAuthenticationService(UserDetailService userDetailService){
+        this.userDetailService = userDetailService;
+    }
 
     public UserSignInResponse signIn(UserSignInRequest userSignInRequest) throws CognitoUserException {
 
@@ -55,15 +65,14 @@ public class UserAuthenticationService {
                     // add new password
                     challengeResponses.put("NEW_PASSWORD", userSignInRequest.getNewPassword());
 
-                    final AdminRespondToAuthChallengeRequest request =
-                            new AdminRespondToAuthChallengeRequest()
-                                    .withChallengeName(ChallengeNameType.NEW_PASSWORD_REQUIRED)
-                                    .withChallengeResponses(challengeResponses)
-                                    .withClientId(clientId).withUserPoolId(userPoolId)
-                                    .withSession(result.getSession());
+                    final AdminRespondToAuthChallengeRequest request = new AdminRespondToAuthChallengeRequest()
+                            .withChallengeName(ChallengeNameType.NEW_PASSWORD_REQUIRED)
+                            .withChallengeResponses(challengeResponses)
+                            .withClientId(clientId).withUserPoolId(userPoolId)
+                            .withSession(result.getSession());
 
-                    AdminRespondToAuthChallengeResult resultChallenge =
-                            cognitoClient.adminRespondToAuthChallenge(request);
+                    AdminRespondToAuthChallengeResult resultChallenge = cognitoClient
+                            .adminRespondToAuthChallenge(request);
                     authenticationResult = resultChallenge.getAuthenticationResult();
 
                     userSignInResponse.setAccessToken(authenticationResult.getAccessToken());
@@ -72,12 +81,14 @@ public class UserAuthenticationService {
                     userSignInResponse.setExpiresIn(authenticationResult.getExpiresIn());
                     userSignInResponse.setTokenType(authenticationResult.getTokenType());
 
-
                 } else {
                     throw new CognitoUserException(
                             "User has other challenge " + result.getChallengeName());
                 }
             } else {
+                // Verify user in database
+                Optional<UserDetail> userDetail = userDetailService.findUserDetailByUsername(userSignInRequest.getUsername());
+                System.out.println("existe: "+userDetail);
 
                 System.out.println("User has no challenge");
                 authenticationResult = result.getAuthenticationResult();
@@ -87,6 +98,8 @@ public class UserAuthenticationService {
                 userSignInResponse.setRefreshToken(authenticationResult.getRefreshToken());
                 userSignInResponse.setExpiresIn(authenticationResult.getExpiresIn());
                 userSignInResponse.setTokenType(authenticationResult.getTokenType());
+
+
             }
 
         } catch (InvalidParameterException e) {
@@ -98,4 +111,3 @@ public class UserAuthenticationService {
         return userSignInResponse;
     }
 }
-
