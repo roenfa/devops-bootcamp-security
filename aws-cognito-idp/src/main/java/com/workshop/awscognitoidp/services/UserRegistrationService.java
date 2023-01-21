@@ -24,16 +24,20 @@ public class UserRegistrationService {
     public void signUp(UserSignUpRequest userSignUpRequest) throws CognitoUserException {
 
         try {
+            System.out.println(userSignUpRequest.getEmail());
+            System.out.println(userSignUpRequest.getRole());
 
             AttributeType emailAttr =
                     new AttributeType().withName("email").withValue(userSignUpRequest.getEmail());
             AttributeType emailVerifiedAttr =
                     new AttributeType().withName("email_verified").withValue("true");
+            AttributeType roleAttr =
+                    new AttributeType().withName("custom:role").withValue(userSignUpRequest.getRole());
 
             AdminCreateUserRequest userRequest = new AdminCreateUserRequest()
                     .withUserPoolId(userPoolId).withUsername(userSignUpRequest.getUsername())
                     .withTemporaryPassword(userSignUpRequest.getPassword())
-                    .withUserAttributes(emailAttr, emailVerifiedAttr)
+                    .withUserAttributes(emailAttr, emailVerifiedAttr,roleAttr)
                     .withMessageAction(MessageActionType.SUPPRESS)
                     .withDesiredDeliveryMediums(DeliveryMediumType.EMAIL);
 

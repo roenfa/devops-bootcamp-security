@@ -19,17 +19,20 @@ public class JwtValidator {
     @Autowired
     private AwsCognitoRSAKeyProvider provider;
 
+    private JwtDataRetriever jwtDataRetriever;
     public boolean validateJwtToken(String authToken) {
         try {
             Algorithm algorithm = Algorithm.RSA256(provider);
             JWTVerifier jwtVerifier = JWT.require(algorithm).build();
 
-            var subject = JWT.decode(authToken).getSubject();
-            var email = JWT.decode(authToken).getClaim("email");
-            // TODO: Validate email and subject against our database (user-service)
-
+//            var subject = JWT.decode(authToken).getSubject();
+//            var email = JWT.decode(authToken).getClaim("email");
+//            var role = JWT.decode(authToken).getClaim("custom:role");
+//            System.out.println(authToken);
+//            System.out.println(subject);
+//            System.out.println(email.toString());
+//            System.out.println(role.toString());
             jwtVerifier.verify(authToken);
-
             return true;
 
         } catch (MalformedJwtException e) {

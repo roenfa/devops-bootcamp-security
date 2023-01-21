@@ -1,6 +1,7 @@
 package com.workshop.awscognitoidp.filters;
 
 import com.workshop.awscognitoidp.config.ConfigurationConstants;
+import com.workshop.awscognitoidp.services.JwtDataRetriever;
 import com.workshop.awscognitoidp.services.JwtValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Autowired
     private JwtValidator jwtValidator;
+    @Autowired
+    private JwtDataRetriever jwtDataRetriever;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -31,23 +34,22 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         if ( !isPublicUrl(request.getRequestURI())) {
             String token = parseToken(request);
-            logger.info("Extracted token: " + token);
+           // logger.info("Extracted token: " + token);
 
-            // TODO: Replace this code with call to am Authorizer Lambda
             boolean result = jwtValidator.validateJwtToken(token);
-            logger.info("Jwt Token is valid? " + result);
+        //    logger.info("Jwt Token is valid? " + result);
+            String Role =  jwtDataRetriever.getTokenRole(token);
+            System.out.println(Role);
         }
 
         filterChain.doFilter(request, response);
     }
 
-    private String parseToken(HttpServletRequest request) {
+    public String parseToken(HttpServletRequest request) {
         final String authorizationValue = request.getHeader(AUTHORIZATION);
-
         if (authorizationValue != null && authorizationValue.startsWith(BEARER)) {
             return authorizationValue.substring(7);
         }
-
         return null;
     }
 
