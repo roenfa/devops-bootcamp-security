@@ -1,13 +1,9 @@
 package com.workshop.awscognitoidp.controllers;
 
-import com.workshop.awscognitoidp.filters.JwtRequestFilter;
-import com.workshop.awscognitoidp.models.Score;
 import com.workshop.awscognitoidp.models.Subject;
-import com.workshop.awscognitoidp.repositories.ISubjects;
 import com.workshop.awscognitoidp.repositories.SubjectRepository;
 import com.workshop.awscognitoidp.services.JwtDataRetriever;
 import com.workshop.awscognitoidp.services.JwtValidator;
-import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;

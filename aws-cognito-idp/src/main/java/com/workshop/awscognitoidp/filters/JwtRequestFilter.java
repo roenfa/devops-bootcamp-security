@@ -24,9 +24,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private static final Logger logger = LoggerFactory.getLogger(JwtRequestFilter.class);
 
     @Autowired
-    private JwtValidator jwtValidator;
+    JwtValidator jwtValidator;
     @Autowired
-    private JwtDataRetriever jwtDataRetriever;
+    JwtDataRetriever jwtDataRetriever;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)

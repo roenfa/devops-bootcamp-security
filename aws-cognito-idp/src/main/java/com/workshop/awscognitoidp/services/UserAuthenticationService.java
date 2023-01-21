@@ -15,12 +15,12 @@
     @Service
     public class UserAuthenticationService {
         @Value(value = "${aws.cognito.userPoolId}")
-        private String userPoolId;
+        String userPoolId;
         @Value(value = "${aws.cognito.clientId}")
-        private String clientId;
+        String clientId;
 
         @Autowired
-        private AWSCognitoIdentityProvider cognitoClient;
+        AWSCognitoIdentityProvider cognitoClient;
 
         public UserSignInResponse signIn(UserSignInRequest userSignInRequest) throws CognitoUserException {
 
