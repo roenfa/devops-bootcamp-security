@@ -2,13 +2,16 @@ package com.workshop.awscognitoidp.services.practice;
 
 import java.util.Optional;
 
+import com.workshop.awscognitoidp.helpers.GradesEnum;
 import com.workshop.awscognitoidp.models.practice.Subject;
+import com.workshop.awscognitoidp.models.practice.SubjectStudent;
 
 public interface SubjectService {
+  Subject saveSubject(Subject subject);
   Optional<Subject> getSubjectById(Long idSubject);
-  void assignSubjectStudentGrade(
+  SubjectStudent assignSubjectStudentGrade(
     Long studentId,
-    Long gradeId,
-    Long subjectId
+    Long subjectId,
+    GradesEnum grade
   );
 }
