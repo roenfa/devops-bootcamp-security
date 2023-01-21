@@ -24,7 +24,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testImplementation 'org.projectlombok:lombok:1.18.20'
-	annotationProcessor("org.projectlombok:lombok:1.18.20")
+	annotationProcessor 'org.projectlombok:lombok:1.18.20'
 
 	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
@@ -34,6 +34,23 @@ dependencies {
 
 	// https://mvnrepository.com/artifact/com.auth0/java-jwt
 	implementation 'com.auth0:java-jwt:4.2.2'
+
+	// https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc
+    implementation 'com.microsoft.sqlserver:mssql-jdbc:11.2.0.jre11'
+
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-jdbc
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc:2.7.5'
+
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.7.5'
+
+	// https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager
+    implementation 'org.hibernate:hibernate-entitymanager:5.6.13.Final'
+
+	// https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk
+	implementation 'com.amazonaws:aws-java-sdk:1.12.387'
+
+
 
 }
 
@@ -57,3 +74,14 @@ task buildZip(type: Zip) {
 }
 
 build.dependsOn buildZip
+
+tasks.named("bootRun") {
+    sourceResources sourceSets.main
+
+    systemProperty 'spring.datasource.url', findProperty('dbUrl')
+    systemProperty 'spring.datasource.user', findProperty('dbUser')
+    systemProperty 'spring.datasource.password', findProperty('dbPassword')
+    systemProperty 'spring.datasource.driverClassName', findProperty('dbDriverClass')
+    systemProperty 'aws.access-key', findProperty('awsAccessKey')
+	systemProperty 'aws.access-secret', findProperty('awsAccessSecret')
+}

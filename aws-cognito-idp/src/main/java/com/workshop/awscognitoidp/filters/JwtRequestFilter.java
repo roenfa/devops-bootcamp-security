@@ -2,6 +2,7 @@ package com.workshop.awscognitoidp.filters;
 
 import com.workshop.awscognitoidp.config.ConfigurationConstants;
 import com.workshop.awscognitoidp.services.JwtValidator;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
