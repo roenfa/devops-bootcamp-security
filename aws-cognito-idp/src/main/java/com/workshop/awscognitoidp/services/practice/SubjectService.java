@@ -14,4 +14,5 @@ public interface SubjectService {
     Long subjectId,
     GradesEnum grade
   );
+  Iterable<Subject> findAll();
 }

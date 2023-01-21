@@ -48,5 +48,10 @@ public class SubjectServiceImpl implements SubjectService {
 
     return subjectStudentRepository.save(subjectStudent);
   }
+
+  @Override
+  public Iterable<Subject> findAll() {
+    return subjectRepository.findAll();
+  }
   
 }
