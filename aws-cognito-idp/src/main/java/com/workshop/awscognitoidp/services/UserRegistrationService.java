@@ -34,6 +34,7 @@ public class UserRegistrationService {
                     .withUserPoolId(userPoolId).withUsername(userSignUpRequest.getUsername())
                     .withTemporaryPassword(userSignUpRequest.getPassword())
                     .withUserAttributes(emailAttr, emailVerifiedAttr)
+
                     .withMessageAction(MessageActionType.SUPPRESS)
                     .withDesiredDeliveryMediums(DeliveryMediumType.EMAIL);
 
