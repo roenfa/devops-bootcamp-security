@@ -8,7 +8,6 @@ import lombok.*;
 
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -16,14 +15,17 @@ import lombok.*;
 @JsonIgnoreProperties(value= {"suppliers"})
 public class StudentGrade extends AbstractEntity {
 
+    private Long id = super.getId();
+
     @Column
     private String grade;
 
-    @ManyToOne
+    @OneToOne
     private Subject subject;
 
-    public StudentGrade(Subject subject, String grade){
+    public StudentGrade(String grade, Subject subject) {
         this.grade = grade;
         this.subject = subject;
     }
+
 }

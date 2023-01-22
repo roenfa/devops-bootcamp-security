@@ -50,8 +50,6 @@ dependencies {
 	// https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk
 	implementation 'com.amazonaws:aws-java-sdk:1.12.387'
 
-
-
 }
 
 test {

@@ -30,7 +30,7 @@ public class TrainerServiceImp implements Service<Trainer>{
         var it = trainerRepository.findAll();
         var orders = new ArrayList<Trainer>();
         it.forEach(e -> {
-            Hibernate.initialize(e.getTrainerSubjects());
+            Hibernate.initialize(e.getSubjects());
             Hibernate.initialize(e.getBootcamps());
             orders.add(e);
         });
@@ -46,7 +46,10 @@ public class TrainerServiceImp implements Service<Trainer>{
 
     @Override
     public Trainer insert(Trainer o) {
-        o.getTrainerSubjects()
+        if(o.getBootcamps() == null || o.getSubjects() == null){
+            return trainerRepository.save(o);
+        }
+        o.getSubjects()
             .stream()
             .map(p -> {
                 Subject subject = subjectRepository.findById(p.getId()).get();

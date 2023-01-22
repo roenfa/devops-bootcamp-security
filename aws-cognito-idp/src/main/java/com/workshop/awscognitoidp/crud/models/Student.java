@@ -1,7 +1,7 @@
 package com.workshop.awscognitoidp.crud.models;
 
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -9,7 +9,6 @@ import lombok.*;
 
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -17,14 +16,11 @@ import lombok.*;
 public class Student extends AbstractEntity {
 
     @OneToOne
-    @JoinColumn(name = "id")
     private UserDB user;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "student_id")
-	private List<StudentGrade> studentGrades;
+    @OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true, fetch = FetchType.EAGER)
+	private Set<StudentGrade> studentGrades;
 
     @OneToOne
-    @JoinColumn(name = "id")
     private Bootcamp bootcamp;
 }

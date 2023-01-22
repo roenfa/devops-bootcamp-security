@@ -41,13 +41,15 @@ public class StudentServiceImp implements Service<Student>{
 
     @Override
     public Student insert(Student o) {
-        o.getStudentGrades()
+        if(o.getStudentGrades() != null){
+            o.getStudentGrades()
             .stream()
             .map(p -> {
                 Subject subject = subjectRepository.findById(p.getSubject().getId()).get();
                 StudentGrade studentGrade = new StudentGrade(p.getGrade(), subject);
                 return studentGrade;
             });
+        }
 
         return studentRepository.save(o);
     }
