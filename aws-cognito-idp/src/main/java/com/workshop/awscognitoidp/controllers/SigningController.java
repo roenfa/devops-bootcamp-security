@@ -27,14 +27,4 @@ public class SigningController {
     public @ResponseBody  UserSignInResponse signIn(@RequestBody UserSignInRequest userSignInRequest) throws CognitoUserException {
         return userAuthenticationService.signIn(userSignInRequest);
     }
-
-    @GetMapping(path = "/detail")
-    public @ResponseBody  UserDetail getUserDetail() {
-
-        UserDetail userDetail = new UserDetail();
-        userDetail.setFirstName("Test");
-        userDetail.setLastName("Buddy");
-        userDetail.setEmail("testbuddy@tutotialsbuddy.com");
-        return userDetail;
-    }
 }
