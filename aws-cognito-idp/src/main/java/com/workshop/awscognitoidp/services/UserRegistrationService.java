@@ -34,14 +34,14 @@ public class UserRegistrationService {
                     .withUserPoolId(userPoolId).withUsername(userSignUpRequest.getUsername())
                     .withTemporaryPassword(userSignUpRequest.getPassword())
                     .withUserAttributes(emailAttr, emailVerifiedAttr)
-
                     .withMessageAction(MessageActionType.SUPPRESS)
                     .withDesiredDeliveryMediums(DeliveryMediumType.EMAIL);
 
             AdminCreateUserResult createUserResult = cognitoClient.adminCreateUser(userRequest);
-
             System.out.println("User " + createUserResult.getUser().getUsername()
                     + " is created. Status: " + createUserResult.getUser().getUserStatus());
+
+            this.setUserDefaultGroup(createUserResult.getUser().getUsername(), "STUDENT");
 
             // Disable force change password during first login
             AdminSetUserPasswordRequest adminSetUserPasswordRequest =
@@ -55,6 +55,18 @@ public class UserRegistrationService {
             System.out.println(e.getErrorMessage());
         } catch (Exception e) {
             System.out.println("Setting user password");
+        }
+    }
+
+    public void setUserDefaultGroup(String username, String group) {
+        try{
+            AdminAddUserToGroupRequest addUserToGroupRequest = new AdminAddUserToGroupRequest()
+                    .withUserPoolId(this.userPoolId)
+                    .withUsername(username)
+                    .withGroupName(group);
+            cognitoClient.adminAddUserToGroup(addUserToGroupRequest);
+        }catch (Exception e) {
+            System.out.println("Set user default group fails: " + e.getMessage());
         }
     }
 
