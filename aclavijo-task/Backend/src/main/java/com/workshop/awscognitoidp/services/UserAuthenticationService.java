@@ -98,6 +98,7 @@ import com.workshop.awscognitoidp.models.UserSignInResponse;
                     userSignInResponse.setExpiresIn(authenticationResult.getExpiresIn());
                     userSignInResponse.setTokenType(authenticationResult.getTokenType());
                     userSignInResponse.setRol(rol.getRole(authenticationResult.getIdToken()));
+                    userSignInResponse.setUsername(rol.getUsername(authenticationResult.getIdToken()));
                 }
 
             } catch (InvalidParameterException e) {

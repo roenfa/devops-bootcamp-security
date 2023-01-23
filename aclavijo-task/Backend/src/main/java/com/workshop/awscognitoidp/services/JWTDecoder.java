@@ -13,7 +13,7 @@ public class JWTDecoder {
     }
 
     public String getUsername(String token){
-        return getClaim(token, "custom:username");
+        return getClaim(token, "cognito:username");
     }
 
     public String getEmail(String token){
