@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 @Service
 public class UserRegistrationService {
 
@@ -29,12 +27,13 @@ public class UserRegistrationService {
                     new AttributeType().withName("email").withValue(userSignUpRequest.getEmail());
             AttributeType emailVerifiedAttr =
                     new AttributeType().withName("email_verified").withValue("true");
+            AttributeType roleAttr =
+                    new AttributeType().withName("custom:role").withValue(userSignUpRequest.getRole());
 
             AdminCreateUserRequest userRequest = new AdminCreateUserRequest()
                     .withUserPoolId(userPoolId).withUsername(userSignUpRequest.getUsername())
                     .withTemporaryPassword(userSignUpRequest.getPassword())
-                    .withUserAttributes(emailAttr, emailVerifiedAttr)
-
+                    .withUserAttributes(emailAttr, emailVerifiedAttr,roleAttr)
                     .withMessageAction(MessageActionType.SUPPRESS)
                     .withDesiredDeliveryMediums(DeliveryMediumType.EMAIL);
 
@@ -58,8 +57,5 @@ public class UserRegistrationService {
         }
     }
 
-    private String createTemporaryPassword() {
-        return UUID.randomUUID().toString();
-    }
 }
 

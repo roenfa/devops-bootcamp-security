@@ -18,6 +18,8 @@ public class UserAuthenticationService {
     private String userPoolId;
     @Value(value = "${aws.cognito.clientId}")
     private String clientId;
+    @Autowired
+    private JwtData jwtData;
 
     @Autowired
     private AWSCognitoIdentityProvider cognitoClient;
@@ -87,6 +89,7 @@ public class UserAuthenticationService {
                 userSignInResponse.setRefreshToken(authenticationResult.getRefreshToken());
                 userSignInResponse.setExpiresIn(authenticationResult.getExpiresIn());
                 userSignInResponse.setTokenType(authenticationResult.getTokenType());
+                userSignInResponse.setRole(jwtData.getTokenRole(authenticationResult.getIdToken()));
             }
 
         } catch (InvalidParameterException e) {

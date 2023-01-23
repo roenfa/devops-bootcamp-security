@@ -1,7 +1,7 @@
 package com.workshop.awscognitoidp.filters;
 
 import com.workshop.awscognitoidp.config.ConfigurationConstants;
-import com.workshop.awscognitoidp.services.IJwtValidator;
+import com.workshop.awscognitoidp.services.JwtData;
 import com.workshop.awscognitoidp.services.JwtValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,15 +20,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     public static final String AUTHORIZATION = "Authorization";
     public static final String BEARER = "Bearer ";
-
     private static final Logger logger = LoggerFactory.getLogger(JwtRequestFilter.class);
 
-//    @Autowired
-    private IJwtValidator jwtValidator;
-
-    public JwtRequestFilter(IJwtValidator jwtValidator) {
-        this.jwtValidator = jwtValidator;
-    }
+    @Autowired
+    JwtData jwtData;
+    @Autowired
+    JwtValidator jwtValidator;
 
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -38,9 +35,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             String token = this.parseToken(request);
             logger.info("Extracted token: " + token);
 
-            // TODO: Replace this code with call to am Authorizer Lambda
             boolean result = jwtValidator.validateJwtToken(token);
+            String Role =  jwtData.getTokenRole(token);
             logger.info("Jwt Token is valid? " + result);
+            System.out.println(Role);
         }
 
         filterChain.doFilter(request, response);

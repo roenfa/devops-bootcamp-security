@@ -1,0 +1,54 @@
+*{
+  padding: auto;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #2b3a58;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.container{
+  width: 400px;
+  display: inline-block;
+
+}
+
+.container input, button, select{
+  width: 300px;
+  height: 40px;
+  border-radius: 5px;
+  margin: 5px 0px;
+}
+
+button{
+  background-color: skyblue;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+#btns{
+  width: 150px;
+}
+
+.logout-btn{
+  background-color: rgb(131, 131, 131);
+  width: 150px;
+  height: 100px;
+  position: fixed;
+  top: 0px;
+  right: 5px;
+}
