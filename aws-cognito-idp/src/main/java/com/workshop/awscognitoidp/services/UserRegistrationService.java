@@ -3,6 +3,7 @@ package com.workshop.awscognitoidp.services;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
 import com.amazonaws.services.cognitoidp.model.*;
 import com.workshop.awscognitoidp.exceptions.CognitoUserException;
+import com.workshop.awscognitoidp.models.UserRole;
 import com.workshop.awscognitoidp.models.UserSignUpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +22,7 @@ public class UserRegistrationService {
     @Autowired
     private AWSCognitoIdentityProvider cognitoClient;
 
-    public void signUp(UserSignUpRequest userSignUpRequest) throws CognitoUserException {
+    public void signUp(UserSignUpRequest userSignUpRequest, UserRole userRole) throws CognitoUserException {
 
         try {
 
@@ -41,7 +42,7 @@ public class UserRegistrationService {
             System.out.println("User " + createUserResult.getUser().getUsername()
                     + " is created. Status: " + createUserResult.getUser().getUserStatus());
 
-            this.setUserDefaultGroup(createUserResult.getUser().getUsername(), "STUDENT");
+            this.setUserRole(createUserResult.getUser().getUsername(), userRole);
 
             // Disable force change password during first login
             AdminSetUserPasswordRequest adminSetUserPasswordRequest =
@@ -58,12 +59,12 @@ public class UserRegistrationService {
         }
     }
 
-    public void setUserDefaultGroup(String username, String group) {
+    public void setUserRole(String username, UserRole userRole) {
         try{
             AdminAddUserToGroupRequest addUserToGroupRequest = new AdminAddUserToGroupRequest()
                     .withUserPoolId(this.userPoolId)
                     .withUsername(username)
-                    .withGroupName(group);
+                    .withGroupName(userRole.name());
             cognitoClient.adminAddUserToGroup(addUserToGroupRequest);
         }catch (Exception e) {
             System.out.println("Set user default group fails: " + e.getMessage());
