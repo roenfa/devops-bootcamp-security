@@ -19,8 +19,12 @@ public class UserController {
 
     @PostMapping(path = "/sign-up")
     public void signUp(@RequestBody UserSignUpRequest userSignUpRequest) throws CognitoUserException {
-
         this.userRegistrationService.signUp(userSignUpRequest, UserRole.STUDENT);
+    }
+
+    @PostMapping(path = "/trainer/sign-up")
+    public void signUpTrainer(@RequestBody UserSignUpRequest userSignUpRequest) throws CognitoUserException {
+        this.userRegistrationService.signUp(userSignUpRequest, UserRole.TRAINER);
     }
 
     @PostMapping(path = "/sign-in")

@@ -54,6 +54,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     }
 
     private boolean isPublicUrl(String incomingUri) {
-        return ConfigurationConstants.permitAllEndpointList.contains(incomingUri);
+        return ConfigurationConstants.permittedEndpointList.contains(incomingUri);
     }
 }

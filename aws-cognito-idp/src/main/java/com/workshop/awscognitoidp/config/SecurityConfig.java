@@ -24,24 +24,18 @@ import java.util.stream.Collectors;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    public static final String SIGNUP_URL = "/api/users/sign-up";
-    public static final String SIGN_IN_URL = "/api/users/sign-in";
 
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-        List<String> permitAllEndpointList = Arrays.asList(SIGNUP_URL, SIGN_IN_URL);
-
         http
                 .cors()
                 .and()
                 .csrf().disable()
                 .authorizeRequests(expressionInterceptUrlRegistry -> expressionInterceptUrlRegistry
-                        .antMatchers(permitAllEndpointList
-                                .toArray(new String[permitAllEndpointList.size()]))
+                        .antMatchers(ConfigurationConstants.permittedEndpointList.toArray(new String[0]))
                         .permitAll()
                         .anyRequest()
                         .authenticated())
