@@ -1,4 +1,4 @@
-package com.workshop.awscognitoidp.models;
+package com.workshop.awscognitoidp.security.models;
 
 public class UserSignUpRequest {
     private String username;

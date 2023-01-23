@@ -1,20 +1,17 @@
 package com.workshop.awscognitoidp.services;
 
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
-import com.amazonaws.services.cognitoidp.model.ListUsersInGroupRequest;
-import com.amazonaws.services.cognitoidp.model.ListUsersInGroupResult;
-import com.amazonaws.services.cognitoidp.model.UserType;
+import com.amazonaws.services.cognitoidp.model.*;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.workshop.awscognitoidp.models.Student;
-import com.workshop.awscognitoidp.models.UserRole;
+import com.workshop.awscognitoidp.security.models.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,12 +38,31 @@ public class StudentService {
 
             return listUsersInGroupResult
                     .getUsers().stream()
-                    .map( user -> objectMapper.convertValue(user, Student.class)).collect(Collectors.toList());
-        }catch (Exception e) {
+                    .map(user -> objectMapper.convertValue(user, Student.class)).collect(Collectors.toList());
+        } catch (Exception e) {
             System.out.println("Error retrieving all students: " + e.getMessage());
         }
 
         return Collections.emptyList();
+    }
+
+    public Student findUserByUsername(String username) {
+        try {
+            AdminGetUserResult adminGetUserResult = cognitoClient.adminGetUser(
+                    new AdminGetUserRequest()
+                            .withUserPoolId(this.userPoolId)
+                            .withUsername(username));
+
+            Student student = new Student();
+            student.setUsername(adminGetUserResult.getUsername());
+            student.setAttributes(adminGetUserResult.getUserAttributes());
+            return student;
+
+        } catch (Exception e) {
+            System.out.println("Error retrieving all students: " + e.getMessage());
+        }
+
+        return null;
     }
 
 }

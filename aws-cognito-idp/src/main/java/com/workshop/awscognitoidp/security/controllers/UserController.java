@@ -1,9 +1,9 @@
-package com.workshop.awscognitoidp.controllers;
+package com.workshop.awscognitoidp.security.controllers;
 
-import com.workshop.awscognitoidp.exceptions.CognitoUserException;
-import com.workshop.awscognitoidp.models.*;
-import com.workshop.awscognitoidp.services.UserAuthenticationService;
-import com.workshop.awscognitoidp.services.UserRegistrationService;
+import com.workshop.awscognitoidp.security.exceptions.CognitoUserException;
+import com.workshop.awscognitoidp.security.models.*;
+import com.workshop.awscognitoidp.security.service.UserAuthenticationService;
+import com.workshop.awscognitoidp.security.service.UserRegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,12 +28,12 @@ public class UserController {
     }
 
     @PostMapping(path = "/sign-in")
-    public @ResponseBody  UserSignInResponse signIn(@RequestBody UserSignInRequest userSignInRequest) throws CognitoUserException {
+    public @ResponseBody UserSignInResponse signIn(@RequestBody UserSignInRequest userSignInRequest) throws CognitoUserException {
         return userAuthenticationService.signIn(userSignInRequest);
     }
 
     @GetMapping(path = "/detail")
-    public @ResponseBody  UserDetail getUserDetail() {
+    public @ResponseBody UserDetail getUserDetail() {
 
         UserDetail userDetail = new UserDetail();
         userDetail.setFirstName("Test");

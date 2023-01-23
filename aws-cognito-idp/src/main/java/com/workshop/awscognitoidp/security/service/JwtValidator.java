@@ -1,4 +1,4 @@
-package com.workshop.awscognitoidp.services;
+package com.workshop.awscognitoidp.security.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;

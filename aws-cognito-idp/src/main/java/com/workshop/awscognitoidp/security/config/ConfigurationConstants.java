@@ -1,4 +1,4 @@
-package com.workshop.awscognitoidp.config;
+package com.workshop.awscognitoidp.security.config;
 
 import java.util.Arrays;
 import java.util.List;

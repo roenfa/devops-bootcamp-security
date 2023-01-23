@@ -1,4 +1,4 @@
-package com.workshop.awscognitoidp.services;
+package com.workshop.awscognitoidp.security.service;
 
 import com.auth0.jwk.JwkException;
 import com.auth0.jwk.JwkProvider;

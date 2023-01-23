@@ -1,8 +1,7 @@
-package com.workshop.awscognitoidp.filters;
+package com.workshop.awscognitoidp.security.filters;
 
-import com.workshop.awscognitoidp.config.ConfigurationConstants;
-import com.workshop.awscognitoidp.services.IJwtValidator;
-import com.workshop.awscognitoidp.services.JwtValidator;
+import com.workshop.awscognitoidp.security.config.ConfigurationConstants;
+import com.workshop.awscognitoidp.security.service.JwtValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

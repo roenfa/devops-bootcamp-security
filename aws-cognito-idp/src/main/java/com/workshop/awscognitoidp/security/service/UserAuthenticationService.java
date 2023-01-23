@@ -1,10 +1,10 @@
-package com.workshop.awscognitoidp.services;
+package com.workshop.awscognitoidp.security.service;
 
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
 import com.amazonaws.services.cognitoidp.model.*;
-import com.workshop.awscognitoidp.exceptions.CognitoUserException;
-import com.workshop.awscognitoidp.models.UserSignInRequest;
-import com.workshop.awscognitoidp.models.UserSignInResponse;
+import com.workshop.awscognitoidp.security.exceptions.CognitoUserException;
+import com.workshop.awscognitoidp.security.models.UserSignInRequest;
+import com.workshop.awscognitoidp.security.models.UserSignInResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

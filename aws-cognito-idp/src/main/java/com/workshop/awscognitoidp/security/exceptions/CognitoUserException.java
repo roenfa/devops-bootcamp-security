@@ -1,4 +1,4 @@
-package com.workshop.awscognitoidp.exceptions;
+package com.workshop.awscognitoidp.security.exceptions;
 
 public class CognitoUserException extends RuntimeException {
     private static final long serialVersionUID = 1L;
