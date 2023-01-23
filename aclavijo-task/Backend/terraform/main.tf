@@ -111,3 +111,55 @@ resource "aws_cognito_user_group" "Student" {
   precedence   = 2
   role_arn     = ""
 }
+
+# resource "aws_dynamodb_table" "students" {
+#   name           = "students"
+#   billing_mode   = "PAY_PER_REQUEST"
+#   hash_key       = "id"
+#   attribute {
+#     name = "id"
+#     type = "S"
+#   }
+#   attribute {
+#     name = "name"
+#     type = "S"
+#   }
+#   attribute {
+#     name = "lastname"
+#     type = "S"
+#   }
+#   attribute {
+#     name = "email"
+#     type = "S"
+#   }
+#   attribute {
+#     name = "country"
+#     type = "S"
+#   }
+# }
+
+# resource "aws_dynamodb_table" "subjects" {
+#   name           = "subjects"
+#   billing_mode   = "PAY_PER_REQUEST"
+#   hash_key       = "id"
+#   attribute {
+#     name = "id"
+#     type = "S"
+#   }
+#   attribute {
+#     name = "student_id"
+#     type = "S"
+#   }
+#   attribute {
+#     name = "trainer_id"
+#     type = "S"
+#   }
+#   attribute {
+#     name = "name"
+#     type = "S"
+#   }
+#   attribute {
+#     name = "grade"
+#     type = "S"
+#   }
+# }

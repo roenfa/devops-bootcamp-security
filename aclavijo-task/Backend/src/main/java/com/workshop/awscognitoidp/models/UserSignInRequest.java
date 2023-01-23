@@ -10,4 +10,5 @@ public class UserSignInRequest {
     private String email;
     private String password;
     private String newPassword;
+    private String role;
 }

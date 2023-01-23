@@ -1,7 +1,6 @@
 package com.workshop.awscognitoidp.controllers;
 
 import com.workshop.awscognitoidp.exceptions.CognitoUserException;
-import com.workshop.awscognitoidp.models.UserDetail;
 import com.workshop.awscognitoidp.models.UserSignInRequest;
 import com.workshop.awscognitoidp.models.UserSignInResponse;
 import com.workshop.awscognitoidp.models.UserSignUpRequest;
@@ -31,13 +30,4 @@ public class UserController {
         return userAuthenticationService.signIn(userSignInRequest);
     }
 
-    @GetMapping(path = "/detail")
-    public @ResponseBody  UserDetail getUserDetail() {
-
-        UserDetail userDetail = new UserDetail();
-        userDetail.setFirstName("Test");
-        userDetail.setLastName("Buddy");
-        userDetail.setEmail("testbuddy@tutotialsbuddy.com");
-        return userDetail;
-    }
 }
