@@ -33,8 +33,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         if ( !this.isPublicUrl(request.getRequestURI())) {
             String token = this.parseToken(request);
             logger.info("Extracted token: " + token);
-
-            // TODO: Replace this code with call to am Authorizer Lambda
             boolean result = jwtValidator.validateJwtToken(token);
             logger.info("Jwt Token is valid? " + result);
         }
