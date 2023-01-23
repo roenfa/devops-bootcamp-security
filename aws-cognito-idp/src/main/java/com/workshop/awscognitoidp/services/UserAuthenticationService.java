@@ -89,7 +89,7 @@ public class UserAuthenticationService {
                 userSignInResponse.setRefreshToken(authenticationResult.getRefreshToken());
                 userSignInResponse.setExpiresIn(authenticationResult.getExpiresIn());
                 userSignInResponse.setTokenType(authenticationResult.getTokenType());
-                userSignInResponse.setRole(jwtData.getTokenRole(authenticationResult.getIdToken()));
+                userSignInResponse.setRole(jwtData.getTokenRole(authenticationResult.getIdToken().substring(7)));
             }
 
         } catch (InvalidParameterException e) {
