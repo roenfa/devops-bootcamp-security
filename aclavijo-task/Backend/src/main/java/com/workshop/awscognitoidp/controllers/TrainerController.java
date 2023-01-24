@@ -33,22 +33,7 @@ public class TrainerController {
     @Autowired
     private TrainerService trainerService;
 
-    @GetMapping("/my-details/{email}")
-    public Object getMyDetails(@PathVariable(value = "email") String email ,@RequestHeader("Authorization") String token) {
-      if(jwtValidator.validateJwtToken(token.substring(7))){ 
-        String role  = JWTDecoder.getRole(token.substring(7));
-        if (role.equals("Trainer") || role.equals("Admin")) {
-            Student Admin = studentService.getStudentbyEmail(email);
-            Trainer Trainer = trainerService.getTrainerbyEmail(email);
-            return (Admin.toString().length()>0) ? Admin : Trainer;
-        } else {
-            throw new AccessDeniedException("Insufficient permissions");
-        }
-      }
-      else {
-          throw new AccessDeniedException("Invalid token");
-      }
-    }
+    
     @GetMapping("/students")
     public List<Student> getStudents(@RequestHeader("Authorization") String token) {
         if(jwtValidator.validateJwtToken(token.substring(7))){

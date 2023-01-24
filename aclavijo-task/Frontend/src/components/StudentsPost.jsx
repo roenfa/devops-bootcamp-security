@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import CryptoJS from 'crypto-js';
 
 const SubjectsPost = () => {
 
@@ -9,7 +10,7 @@ const SubjectsPost = () => {
     const [email, setemail] = useState("");
     const [country, setcountry] = useState("");
     const navigate = useNavigate();
-
+    
     let config = {
          headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('idToken')

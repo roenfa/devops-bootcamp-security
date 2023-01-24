@@ -1,7 +1,13 @@
 import React, { useState } from 'react'
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import CryptoJS from 'crypto-js';
 
+
+const DecryptData = (plaintext, key) => {
+  const ciphertext = CryptoJS.AES.decrypt(plaintext, key);
+  return ciphertext;
+}
 const SubjectsPost = () => {
 
     const [name, setname] = useState("");

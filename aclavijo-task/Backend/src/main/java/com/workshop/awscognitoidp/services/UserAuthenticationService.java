@@ -99,6 +99,7 @@ import com.workshop.awscognitoidp.models.UserSignInResponse;
                     userSignInResponse.setTokenType(authenticationResult.getTokenType());
                     userSignInResponse.setRol(rol.getRole(authenticationResult.getIdToken()));
                     userSignInResponse.setUsername(rol.getUsername(authenticationResult.getIdToken()));
+                    userSignInResponse.setEmail(rol.getEmail(authenticationResult.getIdToken()));
                 }
 
             } catch (InvalidParameterException e) {

@@ -1,17 +1,37 @@
 import React from 'react';
 
-const Trainer = () => {
 
+export default function Admin() {
   return (
     <div className="App">
-          <header className="App-header">
-            <h1>Hi Trainer {localStorage.getItem("username")}</h1>
-            <div className="App-intro">
-              <button onClick={() => window.location.href="/subjects"}>Subjects</button>
-              <button onClick={() => window.location.href="/subjects-post"}>Add Subjects</button>
-            </div>
-          </header>
+      <header>
+        <h1>Welcome Trainer {localStorage.getItem('username')}</h1>
+
+        <div className="App-intro">
+
+          <a href="/subjects-post">
+            <button>Add Subjects</button>
+          </a>
+
+          <a href="/subjects-list">
+            <button>Subjects List</button>
+          </a>
+
+          <a href="/students-post">
+            <button>Add Students</button>
+          </a>
+
+          <a href="/students-list">
+            <button>Students List</button>
+          </a>
+
+          <a href="/mydetails">
+            <button>My Details</button>
+          </a>
         </div>
-  )
+
+      </header>
+
+    </div>  
+  );   // added missing closing bracket for return statement 
 }
-export default Trainer; 

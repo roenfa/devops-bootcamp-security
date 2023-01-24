@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import Admin from './Admin';
-import Student from './StudentList';
+import Student from './Student';
 import Trainer from './Trainer';
 
 const Role_Redirect = () => {
@@ -13,7 +13,6 @@ const handleSubmit = async (e) => {
     localStorage.clear();
     navigate('/');
 }
-
   const role = localStorage.getItem('role');
   
   let ComponentToImport;
@@ -38,7 +37,7 @@ const handleSubmit = async (e) => {
 
   return (
     <div className="App">
-    <header className="App-header">
+    <header className="Header">
       <div className="App-intro">
         {ComponentToImport ? ComponentToImport : null}
         <button className = 'logout' onClick={handleSubmit}>Logout</button>

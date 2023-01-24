@@ -4,7 +4,7 @@ export default function Admin() {
   return (
     <div className="App">
       <header>
-        <h1>Welcome Admin {localStorage.getItem("username")}</h1>
+        <h1>Welcome Admin {localStorage.getItem('username')}</h1>
 
         <div className="App-intro">
 
@@ -30,6 +30,10 @@ export default function Admin() {
 
           <a href="/students-list">
             <button>Students List</button>
+          </a>
+
+          <a href="/mydetails">
+            <button>My Details</button>
           </a>
         </div>
 

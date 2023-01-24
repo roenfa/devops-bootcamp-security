@@ -13,4 +13,5 @@ public class UserSignInResponse {
     private Integer expiresIn;
     private String rol;
     private String username;
+    private String email;
 }

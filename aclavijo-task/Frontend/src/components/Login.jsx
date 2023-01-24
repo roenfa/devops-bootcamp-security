@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+
 const SignIn = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -14,9 +15,11 @@ const SignIn = () => {
       const response = await axios.post(`/api/users/sign-in`, { username, password });
 
       if (response.data.idToken) {
+
         localStorage.setItem("idToken", response.data.idToken);
         localStorage.setItem("role", response.data.rol);
         localStorage.setItem("username", response.data.username);
+        localStorage.setItem("email", response.data.email);
         navigate('/role_redirect');
       } else {
         console.log("Incorrect username or password.");

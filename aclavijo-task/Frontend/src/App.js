@@ -11,6 +11,9 @@ import TrainersList from './components/TrainersList';
 import StudentList from './components/StudentList';
 import TrainersPost from './components/TrainersPost';
 import StudentsPost from './components/StudentsPost';
+import Trainer from './components/Trainer';
+import Student from './components/Student';
+import MyDetails from './components/MyDetails';
 
 
 function App() {
@@ -25,9 +28,12 @@ function App() {
         <Route path="/trainers-list" element= {<TrainersList/>} />
         <Route path="/subjects-list" element= {<SubjectsList/>} />
         <Route path="/students-list" element= {<StudentList/>} />
+        <Route path="/mydetails" element= {<MyDetails/>} />
         <Route path="/register" element= {<Register/>} />
         <Route path="/login" element= {<Login/>} />
         <Route path="/role_redirect" element= {<Role_Redirect/>} />
+        <Route path="/student" element= {<Student/>} />
+        <Route path="/trainer" element= {<Trainer/>} />
         
       </Routes>
     </div>
