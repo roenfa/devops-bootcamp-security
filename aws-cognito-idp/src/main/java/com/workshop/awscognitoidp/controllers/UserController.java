@@ -22,7 +22,6 @@ public class UserController {
 
     @PostMapping(path = "/sign-up")
     public void signUp(@RequestBody UserSignUpRequest userSignUpRequest) throws CognitoUserException {
-
         this.userRegistrationService.signUp(userSignUpRequest);
     }
 
@@ -31,13 +30,5 @@ public class UserController {
         return userAuthenticationService.signIn(userSignInRequest);
     }
 
-    @GetMapping(path = "/detail")
-    public @ResponseBody  UserDetail getUserDetail() {
 
-        UserDetail userDetail = new UserDetail();
-        userDetail.setFirstName("Test");
-        userDetail.setLastName("Buddy");
-        userDetail.setEmail("testbuddy@tutotialsbuddy.com");
-        return userDetail;
-    }
 }

@@ -16,9 +16,9 @@ import java.util.function.Function;
 
 @Component
 public class JwtTokenUtil implements Serializable {
-    private String jwtSigningKey = "secret";
+
     private static final long serialVersionUID = -2550185165626007488L;
-//    public static final long JWT_TOKEN_VALIDITY = 5*60*60;
+//   public static final long JWT_TOKEN_VALIDITY = 5*60*60;
 
     @Value("${jwt.secret}")
     private String secret;
@@ -42,7 +42,7 @@ public class JwtTokenUtil implements Serializable {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parser().setSigningKey(jwtSigningKey).parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     }
 
     private Boolean isTokenExpired(String token) {
@@ -62,7 +62,7 @@ public class JwtTokenUtil implements Serializable {
                 .claim("authorities", userDetails.getAuthorities())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(24)))
-                .signWith(SignatureAlgorithm.HS256, jwtSigningKey).compact();
+                .signWith(SignatureAlgorithm.HS256, secret).compact();
     }
 
     public Boolean isTokenValid(String token, UserDetails userDetails) {
