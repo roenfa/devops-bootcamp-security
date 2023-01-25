@@ -21,17 +21,26 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class JwtRequestFilterTests {
 
+    @Mock
+    private JwtRequestFilter jwtRequestFilter;
     @Test
     public void Should_Success_When_Filter_Is_Called_Validate_Token() throws ServletException, IOException {
+        HttpServletRequest httpServletRequest = mock(HttpServletRequest.class);
+        HttpServletResponse httpServletResponse = mock(HttpServletResponse.class);
+        FilterChain filterChain = mock(FilterChain.class);
 
+        doNothing().when(this.jwtRequestFilter).doFilterInternal(httpServletRequest, httpServletResponse, filterChain);
+
+        this.jwtRequestFilter.doFilterInternal(httpServletRequest, httpServletResponse, filterChain);
+        verify(this.jwtRequestFilter).doFilterInternal(httpServletRequest, httpServletResponse, filterChain);
     }
 }

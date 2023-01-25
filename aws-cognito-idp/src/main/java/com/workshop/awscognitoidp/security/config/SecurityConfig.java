@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
@@ -27,10 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .cors()
-                .and()
-                .csrf().disable()
+        http.csrf().disable()
                 .authorizeRequests(expressionInterceptUrlRegistry -> expressionInterceptUrlRegistry
                         .antMatchers(com.workshop.awscognitoidp.security.config.ConfigurationConstants.permittedEndpointList.toArray(new String[0]))
                         .permitAll()
@@ -40,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .jwt().jwtAuthenticationConverter(getJwtAuthenticationConverter());
 
         http.addFilterBefore(jwtRequestFilter, BearerTokenAuthenticationFilter.class);
+        http.cors().disable();
     }
 
 
