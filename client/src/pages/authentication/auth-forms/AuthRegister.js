@@ -75,7 +75,7 @@ const AuthRegister = () => {
                     try {
                         const pathModifier = ['', values.type + '/'][+(values.type == 'trainer')];
                         axios
-                            .post(`http://localhost:8080/api/users/${pathModifier}sign-up`, {
+                            .post(`${process.env.REACT_APP_API}/users/${pathModifier}sign-up`, {
                                 ...values,
                                 username: values.email
                             })

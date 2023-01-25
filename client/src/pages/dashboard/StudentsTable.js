@@ -129,7 +129,7 @@ export default function StudentsTable({ setCurrentStudent }) {
 
     useEffect(() => {
         axios
-            .get('http://localhost:8080/api/students', { headers: { Authorization: `Bearer ${auth().accessToken}` } })
+            .get(`${process.env.REACT_APP_API}/students`, { headers: { Authorization: `Bearer ${auth().accessToken}` } })
             .then((res) => setRows(res.data));
     }, []);
 

@@ -47,7 +47,7 @@ const AuthLogin = () => {
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
                         axios
-                            .post('http://localhost:8080/api/users/sign-in', {
+                            .post(`${process.env.REACT_APP_API}/users/sign-in`, {
                                 ...values,
                                 username: values.email
                             })

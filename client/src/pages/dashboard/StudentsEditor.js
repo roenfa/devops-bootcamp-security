@@ -13,7 +13,9 @@ const StudentsEditor = ({ currentStudent }) => {
     useEffect(() => {
         if (currentStudent) {
             axios
-                .get(`http://localhost:8080/api/students/${currentStudent}`, { headers: { Authorization: `Bearer ${auth().accessToken}` } })
+                .get(`${process.env.REACT_APP_API}/students/${currentStudent}`, {
+                    headers: { Authorization: `Bearer ${auth().accessToken}` }
+                })
                 .then((res) => setStudent(res.data));
         }
     }, [currentStudent]);

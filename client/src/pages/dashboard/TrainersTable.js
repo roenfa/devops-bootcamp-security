@@ -89,7 +89,7 @@ export default function TrainersTable({ setCurrentStudent }) {
 
     useEffect(() => {
         axios
-            .get('http://localhost:8080/api/trainers', { headers: { Authorization: `Bearer ${auth().accessToken}` } })
+            .get(`${process.env.REACT_APP_API}/trainers`, { headers: { Authorization: `Bearer ${auth().accessToken}` } })
             .then((res) => setRows(res.data));
     }, []);
 
