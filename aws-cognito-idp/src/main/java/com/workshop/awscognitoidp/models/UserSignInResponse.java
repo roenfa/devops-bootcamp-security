@@ -7,6 +7,8 @@ public class UserSignInResponse {
     private String tokenType;
     private Integer expiresIn;
 
+    private String role;
+
     public String getAccessToken() {
         return accessToken;
     }
@@ -47,4 +49,11 @@ public class UserSignInResponse {
         this.expiresIn = expiresIn;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }

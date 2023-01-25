@@ -1,8 +1,8 @@
 package com.workshop.awscognitoidp.filters;
 
 import com.workshop.awscognitoidp.config.ConfigurationConstants;
-import com.workshop.awscognitoidp.services.IJwtValidator;
 import com.workshop.awscognitoidp.services.JwtValidator;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,19 +23,15 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtRequestFilter.class);
 
-//    @Autowired
-    private IJwtValidator jwtValidator;
-
-    public JwtRequestFilter(IJwtValidator jwtValidator) {
-        this.jwtValidator = jwtValidator;
-    }
+    @Autowired
+    private JwtValidator jwtValidator;
 
     @Override
-    public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        if ( !this.isPublicUrl(request.getRequestURI())) {
-            String token = this.parseToken(request);
+        if ( !isPublicUrl(request.getRequestURI())) {
+            String token = parseToken(request);
             logger.info("Extracted token: " + token);
 
             // TODO: Replace this code with call to am Authorizer Lambda

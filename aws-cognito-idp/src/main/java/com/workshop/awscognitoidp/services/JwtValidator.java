@@ -25,9 +25,10 @@ public class JwtValidator {
             JWTVerifier jwtVerifier = JWT.require(algorithm).build();
 
             var subject = JWT.decode(authToken).getSubject();
-//            var role = JWT.decode(authToken).getClaim("role");
             var email = JWT.decode(authToken).getClaim("email");
-            // TODO: Validate email and subject against our database (user-service)
+
+
+
 
             jwtVerifier.verify(authToken);
 
